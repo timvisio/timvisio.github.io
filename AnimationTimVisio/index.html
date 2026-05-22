@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справка: Анимация фигур в Visio от TimVisio</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #106ebe;
+            --secondary: #2b88d8;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text: #323130;
+            --text-muted: #605e5c;
+            --border: #edebe9;
+            --success: #107c10;
+            --warning: #ffb900;
+            --danger: #d83b01;
+            --shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+            --radius: 8px;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        
+        .header-info h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .header-info p { opacity: 0.9; font-size: 1.1rem; }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .nav a {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover { background: var(--primary-dark); }
+        .nav a.active { background: var(--secondary); }
+        
+        /* Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            font-size: 1.4rem;
+        }
+        
+        .card h3 {
+            margin: 20px 0 12px;
+            color: var(--text);
+            font-size: 1.15rem;
+        }
+        
+        /* Steps */
+        .steps { counter-reset: step; }
+        .steps li {
+            list-style: none;
+            padding-left: 40px;
+            position: relative;
+            margin-bottom: 16px;
+        }
+        .steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Settings Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--bg);
+            font-weight: 600;
+            color: var(--primary);
+        }
+        code {
+            background: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            color: var(--danger);
+        }
+        
+        /* Links Section */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        
+        .link-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+        
+        .link-card.vk { background: linear-gradient(135deg, #0077FF, #0055cc); }
+        .link-card.shop1 { background: linear-gradient(135deg, #107c10, #0e6a0e); }
+        .link-card.shop2 { 
+            background: linear-gradient(135deg, #d83b01, #b33201); 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-card.shop2::after {
+            content: "−20%";
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--warning);
+            color: #000;
+            padding: 4px 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transform: rotate(45deg);
+        }
+        
+        .link-card h4 { margin-bottom: 8px; font-size: 1.2rem; }
+        .link-card p { opacity: 0.9; font-size: 0.95rem; }
+        .link-card .url { 
+            display: block; 
+            margin-top: 10px; 
+            font-size: 0.85rem; 
+            opacity: 0.8;
+            word-break: break-all;
+        }
+        
+        /* Tips */
+        .tip {
+            background: #fff4ce;
+            border-left: 4px solid var(--warning);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+        }
+        .tip.success {
+            background: #dff6dd;
+            border-left-color: var(--success);
+        }
+        .tip.danger {
+            background: #fde7e9;
+            border-left-color: var(--danger);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; text-align: center; }
+            .nav { justify-content: center; }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card { animation: fadeIn 0.3s ease-out; }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">🎬</div>
+            <div class="header-info">
+                <h1>Анимация фигур в Microsoft Visio от TimVisio</h1>
+                <p>Профессиональный инструмент для создания динамических схем и презентаций</p>
+            </div>
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#quickstart" class="active">🚀 Быстрый старт</a>
+            <a href="#settings">⚙️ Настройки</a>
+            <a href="#modes">🔀 Режимы работы</a>
+            <a href="#troubleshooting">❓ Решение проблем</a>
+            <a href="#resources">📦 Ресурсы</a>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="grid">
+            
+            <!-- Quick Start -->
+            <div class="card" id="quickstart">
+                <h2>🚀 Быстрый старт</h2>
+                <ol class="steps">
+                    <li><strong>Откройте форму управления:</strong><br>
+                        <code>Переместите фигуру запуск макроса на страницу документа</code></li>
+                    <li><strong>Выделите пути:</strong><br>
+                        Кликните на линии/контуры в нужном порядке → нажмите <strong>«Запомнить пути»</strong></li>
+                    <li><strong>Выделите фигуры:</strong><br>
+                        Кликните на объекты для анимации → нажмите <strong>«Запомнить фигуры»</strong></li>
+                    <li><strong>Настройте параметры:</strong><br>
+                        Укажите скорость, задержку, угол и смещение (по умолчанию подходят для большинства задач)</li>
+                    <li><strong>Запустите:</strong><br>
+                        Нажмите <strong>«Запустить анимацию»</strong> и наблюдайте результат</li>
+                </ol>
+                
+                <div class="tip success">
+                    💡 <strong>Совет:</strong> Порядок выделения путей критически важен! 
+                    Фигуры будут двигаться именно в той последовательности, в которой вы их выделили.
+                </div>
+            </div>
+            
+            <!-- Settings -->
+            <div class="card" id="settings">
+                <h2>⚙️ Настройки анимации</h2>
+                
+                <h3>Основные параметры</h3>
+                <table>
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Единицы</th>
+                        <th>Рекомендации</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Скорость</strong></td>
+                        <td>мм/кадр</td>
+                        <td><code>1.5–5.0</code><br>Меньше = плавнее, больше = быстрее</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Задержка кадра</strong></td>
+                        <td>мс</td>
+                        <td><code>0</code><br>Оптимально для плавности без нагрузки</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Точность пути</strong></td>
+                        <td>дюймы</td>
+                        <td><code>0.02–0.05</code><br>Меньше = точнее на изгибах</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Смещение угла</strong></td>
+                        <td>радианы</td>
+                        <td><code>0</code> (по касательной)<br><code>1.5708</code> = +90°<br><code>3.1416</code> = +180°</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Шаг смещения</strong></td>
+                        <td>мм</td>
+                        <td><code>0–100</code><br>Дистанция между фигурами в конвое</td>
+                    </tr>
+                </table>
+                
+                <h3>Дополнительные опции</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 8px;">
+                        <strong>☑ Зациклить анимацию</strong><br>
+                        После завершения маршрута фигуры автоматически вернутся в начало
+                    </li>
+                    <li>
+                        <strong>⏹ СТОП</strong><br>
+                        Мгновенная остановка в любой момент (кнопка становится активной только во время выполнения)
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Modes -->
+            <div class="card" id="modes">
+                <h2>🔀 Режимы работы</h2>
+                
+                <h3>🚂 Конвой (общий маршрут)</h3>
+                <p><strong>Когда:</strong> Фигур больше, чем путей (например, 4 фигуры + 3 пути)</p>
+                <p><strong>Как работает:</strong> Все фигуры движутся по одной последовательности путей друг за другом. Параметр <code>Шаг смещения</code> задаёт дистанцию между ними.</p>
+                <div class="tip">
+                    Пример: Фигура 2 стартует на 10 мм позади Фигуры 1, Фигура 3 — ещё на 10 мм позади, и т.д.
+                </div>
+                
+                <h3>🔀 Независимые маршруты</h3>
+                <p><strong>Когда:</strong> Количество путей кратно количеству фигур (например, 3 фигуры + 6 путей)</p>
+                <p><strong>Как работает:</strong> Пути распределяются поровну. Каждая фигура проходит только «свои» этапы.</p>
+                <div class="tip">
+                    Пример: Фигура 1 → Пути 1,4; Фигура 2 → Пути 2,5; Фигура 3 → Пути 3,6
+                </div>
+                
+                <div class="tip danger">
+                    ⚠️ Если соотношение не подходит ни под один режим, макрос покажет понятное сообщение с требованием исправить выделение.
+                </div>
+            </div>
+            
+            <!-- Troubleshooting -->
+            <div class="card" id="troubleshooting">
+                <h2>❓ Решение проблем</h2>
+                
+                <h3>Фигуры не двигаются</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Проверьте, что нажали обе кнопки «Запомнить»</li>
+                    <li>Убедитесь, что выделенные фигуры находятся на <strong>активной странице</strong></li>
+                    <li>Проверьте, что пути содержат геометрию (не пустые группы)</li>
+                </ul>
+                
+                <h3>Анимация слишком быстрая/медленная</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Уменьшите/увеличьте <strong>Скорость (мм/кадр)</strong></li>
+                    <li>Отрегулируйте <strong>Задержку кадра</strong>: 0 мс = быстро, 60 мс = кинематографично</li>
+                </ul>
+                
+                <h3>Фигуры смотрят не туда</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Измените <strong>Смещение угла</strong>: попробуйте <code>1.5708</code> (90°) или <code>3.1416</code> (180°)</li>
+                    <li>Проверьте ориентацию исходной фигуры: она должна «смотреть» вправо по умолчанию</li>
+                </ul>
+                
+                <h3>Макрос не останавливается</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Нажмите кнопку <strong>⏹ СТОП</strong></li>
+                    <li>Используйте <code>Ctrl+Break</code> для принудительной остановки</li>
+                    <li>В новых версиях Office попробуйте <code>Esc</code></li>
+                </ul>
+                
+                <div class="tip success">
+                    💡 <strong>Профи-совет:</strong> Для сложных сцен сначала протестируйте анимацию на 2–3 фигурах с большой задержкой (60 мс), затем уменьшайте задержку для финального рендера.
+                </div>
+            </div>
+            
+            <!-- Resources -->
+            <div class="card" id="resources" style="grid-column: 1 / -1;">
+                <h2>📦 Полезные ресурсы</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">
+                    Дополнительные материалы, сообщество и готовые фигуры для ваших проектов в Visio от TimVisio
+                </p>
+                
+                <div class="links-grid">
+                    <a href="https://vk.com/visioforelectrician" target="_blank" class="link-card vk">
+                        <h4>👥 Группа ВКонтакте</h4>
+                        <p>Сообщество специалистов: советы, примеры, обратная связь и помощь в решении сложных задач.</p>
+                        <span class="url">vk.com/visioforelectrician</span>
+                    </a>
+                    
+                    <a href="https://timvisioshop.molz.io/" target="_blank" class="link-card shop1">
+                        <h4>🛒 Магазин фигур #1</h4>
+                        <p>Профессиональные библиотеки элементов для электросхем, планов и технической документации.</p>
+                        <span class="url">timvisioshop.molz.io</span>
+                    </a>
+                    
+                    <a href="https://timvisioshop.ucoz.net/" target="_blank" class="link-card shop2">
+                        <h4>🎁 Магазин фигур #2</h4>
+                        <p>Расширенная коллекция с эксклюзивными наборами. Специальное предложение для новых клиентов.</p>
+                        <span class="url">timvisioshop.ucoz.net</span>
+                    </a>
+                </div>
+                
+                <div class="tip" style="margin-top: 24px;">
+                    <strong>🎯 Специальное предложение:</strong><br>
+                    При заказе от <strong>1000 рублей</strong> в магазине на ucoz.net действует скидка <strong>20%</strong>!                    
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Инструмент анимации для Microsoft Visio</p>
+            <p style="margin-top: 8px;">
+                Разработано с ❤️ для инженеров и проектировщиков • 
+                <a href="https://vk.com/visioforelectrician" style="color: var(--primary); text-decoration: none;">Поддержка в ВК</a>
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Highlight active section on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.card[id]');
+            const navLinks = document.querySelectorAll('.nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
